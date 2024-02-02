@@ -1,0 +1,81 @@
+.cardWrapper {
+  border: 0;
+  border-radius: 15px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.cardWrapper:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-5px);
+}
+
+.cardMetaWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.cardTitle {
+  text-align: center;
+}
+.cardDescription {
+  text-align: center;
+}
+.cardBottom {
+  display: flex;
+  justify-content: space-between;
+}
+.cardToolbarBtns {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  top: 0px;
+  right: 2px;
+  visibility: hidden;
+}
+
+.cardToolbarBtn{
+  border: 1px solid #666;
+  background-color: #ccc;
+  border-radius: 5px;
+  padding: 4px 5px 2px 7px;
+  cursor: pointer;
+}
+
+
+.toolbarIcon {
+  width: 12px;
+  height: 12px;
+  fill: #666;
+}
+
+.cardWrapper:hover .cardToolbarBtns {
+  visibility: visible;
+}
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer .cover {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.cardWrapp {
+  display: flex;
+}

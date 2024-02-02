@@ -1,0 +1,79 @@
+.deckContainer{
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: cadetblue;
+  padding: 40px 0;
+  border: 4px solid white;
+  border-radius: 20px;
+}
+
+.deckBody {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.question {
+  height: 100%;
+}
+
+.flex{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-family: 'Roboto';
+  font-size: 22px;
+  gap: 20px;
+  padding: 10px;
+  margin-top: 40px;
+}
+
+.btnAnswer{
+  width: 90px;
+  height: 50px;
+  background-color: rgb(206, 215, 77);
+  font-size: 24px;
+}
+
+.scene {
+  perspective: 600px;
+}
+
+.card {
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card__face {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card__face--front {
+
+}
+
+.card__face--back {
+  transform: rotateY(180deg);
+}
+
+
+.afterGameStat {
+  width: 200px;
+  font-size: 36px;
+  font-family: 'Roboto';
+}
