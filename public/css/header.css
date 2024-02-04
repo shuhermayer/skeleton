@@ -12,6 +12,8 @@
 .modal {
   left: 0;
   top: 0;
+  position:absolute;
+  z-index:99;
 }
 .modalContainer {
   color: #ffffff;
@@ -19,6 +21,7 @@
   box-shadow: 5px 5px 12px 2px rgba(63, 63, 63, 0.137);
   border-radius: 5px;
   position: absolute;
+  z-index: 99;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,7 +117,7 @@ button:hover {
   position: absolute;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.144);
+  background-color: rgba(38, 38, 38, 0.823);
   width: 100vw;
   height: 100vh;
 }

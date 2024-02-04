@@ -1,17 +1,17 @@
 const express = require('express')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
-const Main = require('../../views/Main')
 const Layout = require('../../views/Layout')
 const { Cards } = require('../../../db/models/index')
+const { default: ShopCabinet } = require('../../views/ShopCabinet')
 
-const router = express.Router()
+const ShopCabinetRouter = express.Router()
 
-router.get('/', async (req, res) => {
+ShopCabinetRouter.get('/', async (req, res) => {
   console.log('req.session.user', req.session.user)
   const cards = await Cards.findAll({
     where: {
-      published: true,
+      userId: req.session.user.id,
     },
   })
   const element = React.createElement(
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
     {
       user: req.session.user,
     },
-    React.createElement(Main, { title: 'Card List', cards }),
+    React.createElement(ShopCabinet, { title: 'Card List', cards }),
   )
   const html = ReactDOMServer.renderToStaticMarkup(element)
 
@@ -27,4 +27,4 @@ router.get('/', async (req, res) => {
   res.end(html)
 })
 
-module.exports = router
+module.exports = ShopCabinetRouter

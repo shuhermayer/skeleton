@@ -14,6 +14,7 @@ function Header({ login }) {
             <>
               <div>{login}</div>
               <div className="navElement" id="signout">Выйти</div>
+              <div className="navElement" id="storeCabinet">Кабинет магазина</div>
             </>
           )
           : (

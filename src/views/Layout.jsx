@@ -17,6 +17,7 @@ module.exports = function Layout({ user, children }) {
         <link rel="stylesheet" href="/css/layout.css" />
         <link rel="stylesheet" href="/css/header.css" />
         <link rel="stylesheet" href="/css/card.css" />
+        <link rel="stylesheet" href="/css/card-info.css" />
         <script defer src="/js/client.js" />
         <script defer src="/js/main.js" />
         <script defer src="/js/header.js" />

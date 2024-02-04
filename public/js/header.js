@@ -2,7 +2,12 @@ const modal = document.querySelector('.modal')
 const login = document.getElementById('login')
 const signin = document.getElementById('signin')
 const signout = document.getElementById('signout')
+
+// кнопка перехода на главную
 const home = document.getElementById('home')
+
+// кнопка перехода в кабинет магазина
+const storeCabinet = document.getElementById('storeCabinet')
 const modalTitle = document.getElementById('modalTitle')
 const modalOverlay = document.getElementById('modalOverlay')
 const modalContainer = document.querySelector('.modalContainer')
@@ -24,6 +29,7 @@ if (signin) {
     modal.hidden = false
     modalTitle.textContent = 'Регистрация'
     const form = document.getElementById('form')
+    form.elements.btm.textContent = 'Зарегистрироваться'
     form.addEventListener('submit', async (event) => {
       event.preventDefault()
       const res = await fetch('/api/register', {
@@ -46,6 +52,8 @@ if (signin) {
     modal.hidden = false
     modalTitle.textContent = 'Авторизация'
     const form = document.getElementById('form')
+    console.log('form.elements', form.elements)
+    form.elements.btm.textContent = 'Войти'
     console.log('form', form)
     form.addEventListener('submit', async (e) => {
       e.preventDefault()
@@ -78,5 +86,9 @@ if (signin) {
       method: 'DELETE',
     })
     window.location.href = '/'
+  })
+
+  storeCabinet.addEventListener('click', () => {
+    window.location.href = '/shop-cabinet'
   })
 }
