@@ -1,6 +1,9 @@
 const cardWrapper = document.querySelectorAll('.cardWrapper')
 const editBtn = document.querySelector('.editBtn')
+const editWidget = document.querySelectorAll('.editWidget')
+const deleteWidget = document.querySelectorAll('.deleteWidget')
 const cardEditForm = document.getElementById('cardEditForm')
+const publishBtn = document.querySelector('.publishBtn')
 
 if (cardEditForm) {
   cardEditForm.addEventListener('submit', async (e) => {
@@ -13,47 +16,78 @@ if (cardEditForm) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     })
-    console.log('res', res)
     const resData = await res.json()
     if (resData.status === 'OK') window.location.href = `/card/${cardId}`
   })
 }
 
-console.log('cardWrapper', cardWrapper)
-
-cardWrapper.forEach((card) => {
-  card.addEventListener('click', () => {
-    const { cardId } = card.dataset
-    window.location.href = `/card/${cardId}`
-    // window.location.assign(`/card/${cardId}`)
-  })
-})
-
-if (editBtn) {
-  editBtn.addEventListener('click', () => {
-    window.location.href += '/edit'
+if (publishBtn) {
+  publishBtn.addEventListener('click', async () => {
+    const status = publishBtn.textContent === 'Снять с публикации'
+    const res = await fetch(`/api/${window.location.pathname}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ published: !status }),
+    })
+    const resData = await res.json()
+    if (resData.card.published) {
+      publishBtn.textContent = 'Снять с публикации'
+    } else {
+      publishBtn.textContent = 'Опубликовать'
+    }
   })
 }
-
-document.addEventListener('click', (event) => {
-  const target = event.target.closest('.cardToolbarBtn')
-  if (target) {
-    console.log(target)
-    console.log(target.getAttribute('data-type'))
-    const card = target.closest('.cardWrapper')
-    if (card) {
-      const cardId = card.getAttribute('data-card-id')
-      console.log(`card id = ${cardId}`)
-    }
-  }
-})
 
 if (window.location.pathname === '/shop-cabinet') {
   const cards = document.querySelectorAll('.cardWrapper')
   cards.forEach((card) => {
-    card.addEventListener('click', () => {
-      const { cardId } = card.dataset
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('.cardToolbarBtn')) {
+        // e.stopPropagation()
+        const { cardId } = card.dataset
+        window.location.href = `/card/${cardId}`
+      }
+    })
+  })
+}
+
+// хорошая идея, но не пригодилось
+
+// document.addEventListener('click', (event) => {
+//   const target = event.target.closest('.cardToolbarBtn')
+//   if (target) {
+//     const card = target.closest('.cardWrapper')
+//     if (card) {
+//       const cardId = card.getAttribute('data-card-id')
+//     }
+//   }
+// })
+
+if (editBtn) {
+  editBtn.addEventListener('click', (ev) => {
+    console.log('editBtn clicked', ev)
+    window.location.href += '/edit'
+  })
+}
+
+if (editWidget) {
+  editWidget.forEach((element) => {
+    element.addEventListener('click', () => {
+      const { cardId } = element.closest('.cardWrapper').dataset
       window.location.href = `/card/${cardId}/edit`
+    })
+  })
+}
+
+if (deleteWidget) {
+  deleteWidget.forEach((element) => {
+    element.addEventListener('click', async () => {
+      const card = element.closest('.cardWrapper')
+      const { cardId } = card.dataset
+      const res = await fetch(`/api/card/${cardId}`, {
+        method: 'DELETE',
+      })
+      if (res.status === 204) card.remove()
     })
   })
 }

@@ -9,6 +9,7 @@ const { default: CardEdit } = require('../../views/CardEdit')
 const CardViewRouter = express.Router()
 
 CardViewRouter.get('/:id', async (req, res) => {
+  console.log('card view router')
   const cardId = req.params.id
   const { user } = req.session
   const card = await Cards.findOne({
@@ -27,11 +28,12 @@ CardViewRouter.get('/:id', async (req, res) => {
 })
 
 CardViewRouter.get('/:id/edit', async (req, res) => {
+  console.log('card edit router')
   const cardId = req.params.id
 
   try {
     const card = await Cards.findByPk(+cardId)
-    const component = React.createElement(Layout, { card }, React.createElement(CardEdit, { card }))
+    const component = React.createElement(Layout, { user: req.session.user }, React.createElement(CardEdit, { card }))
     const html = ReactDOMServer.renderToStaticMarkup(component)
     res.write('<!DOCTYPE html>')
     res.end(html)

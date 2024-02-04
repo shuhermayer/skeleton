@@ -49,10 +49,25 @@ CardAPIRouter.patch('/card/:id', async (req, res) => {
     Object.keys(newData).forEach((key) => {
       card[key] = newData[key]
     })
+    card.save()
+    res.status(200).json({ card })
+  } catch (error) {
+    console.log(error.message)
+  }
+})
 
-    res.status(200).json({ status: 'OK' })
+CardAPIRouter.delete('/card/:id', async (req, res) => {
+  const cardId = req.params.id
 
-    console.log('card', card)
+  try {
+    const card = await Cards.findOne({
+      where: {
+        id: cardId,
+        userId: req.session.user.id,
+      },
+    })
+    card.destroy()
+    res.status(204).end()
   } catch (error) {
     console.log(error.message)
   }

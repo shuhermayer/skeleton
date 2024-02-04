@@ -1,6 +1,7 @@
 import React from 'react';
 
 function Card({ card }) {
+  console.log(card.published)
   return (
     <div className="mainContainer">
       <div className="toolbar">
@@ -9,6 +10,7 @@ function Card({ card }) {
       <div className="cardInfoWrapper">
         <div className="imgWrapper">
           <img className="img" src={card.image} alt={card.title} />
+          <button className="publishBtn" type="button">{ card.published ? 'Снять с публикации' : 'Опубликовать'}</button>
         </div>
         <div className="metaWrapper">
           <h1>{card.title}</h1>

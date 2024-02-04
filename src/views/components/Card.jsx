@@ -6,8 +6,8 @@ function Card({ card }) {
       <div className="imageContainer">
         <img className="cover" src={card.image} alt="placeholder" />
         <div className="cardToolbarBtns">
-          <div className="cardToolbarBtn" data-type="edit"><img className="toolbarIcon" src="/assets/icons/edit.svg" alt="edit" /></div>
-          <div className="cardToolbarBtn" data-type="view"><img className="toolbarIcon" src="/assets/icons/delete.svg" alt="edit" /></div>
+          <div className="cardToolbarBtn editWidget" data-type="edit"><img className="toolbarIcon" src="/assets/icons/edit.svg" alt="edit" /></div>
+          <div className="cardToolbarBtn deleteWidget" data-type="view"><img className="toolbarIcon" src="/assets/icons/delete.svg" alt="edit" /></div>
         </div>
       </div>
       <div className="cardMetaWrapper">
