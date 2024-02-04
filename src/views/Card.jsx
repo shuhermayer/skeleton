@@ -7,8 +7,8 @@ function Card({ card }) {
         <button type="button" className="editBtn">Редактировать</button>
       </div>
       <div className="cardInfoWrapper">
-        <div>
-          <img src={card.image} alt={card.title} />
+        <div className="imgWrapper">
+          <img className="img" src={card.image} alt={card.title} />
         </div>
         <div className="metaWrapper">
           <h1>{card.title}</h1>

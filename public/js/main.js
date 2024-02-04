@@ -8,13 +8,10 @@ if (cardEditForm) {
     const formData = Object.fromEntries(new FormData(cardEditForm))
     const { cardId } = cardEditForm.dataset
 
-    const res = await fetch('/api/card', {
+    const res = await fetch(`/api/card/${cardId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...formData,
-        id: cardId,
-      }),
+      body: JSON.stringify(formData),
     })
     console.log('res', res)
     const resData = await res.json()
@@ -50,3 +47,13 @@ document.addEventListener('click', (event) => {
     }
   }
 })
+
+if (window.location.pathname === '/shop-cabinet') {
+  const cards = document.querySelectorAll('.cardWrapper')
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const { cardId } = card.dataset
+      window.location.href = `/card/${cardId}/edit`
+    })
+  })
+}

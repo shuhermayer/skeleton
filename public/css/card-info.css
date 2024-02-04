@@ -27,3 +27,15 @@
 .editBtn {
   padding: 6px 12px;
 }
+
+.imgWrapper {
+  width: 300px;
+  max-height: 200px;
+  background-color: white;
+}
+
+.img {
+  object-fit: cover;
+  width: 100%;
+
+}
