@@ -1,7 +1,7 @@
 const React = require('react');
 const Header = require('./components/Header');
 
-module.exports = function Layout({ user, children }) {
+module.exports = function Layout({ user, children, title }) {
   let login;
   if (user) {
     login = user.login;
@@ -21,9 +21,11 @@ module.exports = function Layout({ user, children }) {
         <script defer src="/js/client.js" />
         <script defer src="/js/main.js" />
         <script defer src="/js/header.js" />
+        <script defer src="/js/cart.js" />
       </head>
       <body className="body">
         <Header login={login} />
+        <h1 style={{ marginLeft: '40px' }}>{title}</h1>
         {children}
       </body>
     </html>

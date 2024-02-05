@@ -33,7 +33,11 @@ CardViewRouter.get('/:id/edit', async (req, res) => {
 
   try {
     const card = await Cards.findByPk(+cardId)
-    const component = React.createElement(Layout, { user: req.session.user }, React.createElement(CardEdit, { card }))
+    const component = React.createElement(
+      Layout,
+      { user: req.session.user },
+      React.createElement(CardEdit, { card, user: req.session.user }),
+    )
     const html = ReactDOMServer.renderToStaticMarkup(component)
     res.write('<!DOCTYPE html>')
     res.end(html)

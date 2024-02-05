@@ -19,7 +19,7 @@ ShopCabinetRouter.get('/', async (req, res) => {
     {
       user: req.session.user,
     },
-    React.createElement(ShopCabinet, { title: 'Card List', cards }),
+    React.createElement(ShopCabinet, { title: 'Card List', cards, user: req.session.user }),
   )
   const html = ReactDOMServer.renderToStaticMarkup(element)
 

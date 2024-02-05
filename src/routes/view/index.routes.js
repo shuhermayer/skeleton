@@ -8,7 +8,6 @@ const { Cards } = require('../../../db/models/index')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  console.log('req.session.user', req.session.user)
   const cards = await Cards.findAll({
     where: {
       published: true,
@@ -17,9 +16,10 @@ router.get('/', async (req, res) => {
   const element = React.createElement(
     Layout,
     {
+      title: 'Главная',
       user: req.session.user,
     },
-    React.createElement(Main, { title: 'Card List', cards }),
+    React.createElement(Main, { cards, user: req.session.user }),
   )
   const html = ReactDOMServer.renderToStaticMarkup(element)
 

@@ -1,15 +1,10 @@
 const React = require('react');
-const { default: Card } = require('./components/Card');
 
-function Main({ title = 'no title passed', cards }) {
+function Main() {
   return (
     <div className="mainPageContainer">
-      <h2>{ title }</h2>
-      <div id="cardWrapp" className="cardWrapp">
-        {cards.map((card) => (
-          <Card key={card.id} card={card} />
-        ))}
-      </div>
+      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum eius nihil fugiat aspernatur ea non consectetur nulla, ex totam beatae suscipit pariatur accusantium inventore soluta, animi consequuntur magni similique illum.</div>
+
     </div>
   );
 }

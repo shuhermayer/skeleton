@@ -4,6 +4,7 @@ const editWidget = document.querySelectorAll('.editWidget')
 const deleteWidget = document.querySelectorAll('.deleteWidget')
 const cardEditForm = document.getElementById('cardEditForm')
 const publishBtn = document.querySelector('.publishBtn')
+const buyBtn = document.querySelectorAll('.buyBtn')
 
 if (cardEditForm) {
   cardEditForm.addEventListener('submit', async (e) => {
@@ -18,6 +19,27 @@ if (cardEditForm) {
     })
     const resData = await res.json()
     if (resData.status === 'OK') window.location.href = `/card/${cardId}`
+  })
+}
+
+if (buyBtn) {
+  console.log(buyBtn)
+  buyBtn.forEach((element) => {
+    console.log(element)
+    element.addEventListener('click', async () => {
+      console.log('buyBtn')
+      const { cardId } = element.dataset
+      const res = await fetch('/api/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cardId }),
+      })
+      // const resData = await res.json()
+      if (res.status === 201) {
+        element.textContent = 'В корзине'
+        element.disabled = true
+      }
+    })
   })
 }
 

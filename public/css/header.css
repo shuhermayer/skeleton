@@ -6,7 +6,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  background-color: #949a72;
+  background-color: #ffffff;
 }
 
 .modal {
@@ -68,10 +68,34 @@ label {
   color: rgba(255,255,255,.7);
 }
 .navElement{
+  position: relative;
   cursor: pointer;
   color: #666;
   font-family: 'Roboto';
-  font-size: 22px;
+  font-size: 18px;
+  
+  transition: all 0.3s ease-in;
+}
+
+.navElement::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transition: width 0.3s ease;
+  transform: translateY(50%);
+}
+
+.navElement:hover::after {
+  width: 100%;
+  background-color: #ff0000;
+}
+
+.navElement:hover {
+  color: #ff0000;
 }
 
 
@@ -105,7 +129,7 @@ button:hover {
 
 .menu{
   display: flex;
-  gap: 10px;
+  gap: 20px;
   align-items: center;
   width: 100%;
   justify-content: flex-end;
