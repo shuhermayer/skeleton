@@ -2,6 +2,8 @@ require('@babel/register')
 const express = require('express')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
 const serverConfig = require('./config/serverConfig')
 const indexRouter = require('./src/routes/view/index.routes')
 const RegistrationAPIRouter = require('./src/routes/api/register.routes')
@@ -13,20 +15,38 @@ const CardAPIRouter = require('./src/routes/api/card.routes')
 const ShopViewRouter = require('./src/routes/view/Shop.routes')
 const CartAPIRouter = require('./src/routes/api/cart.routes')
 const CartViewRouter = require('./src/routes/view/Cart.routes')
+const ssr = require('./src/middlewares/Render')
 
 const app = express()
 const PORT = 3000
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'API',
+      description: 'API Information',
+      contact: {
+        name: 'Amazing Developer',
+      },
+      servers: ['http://localhost:3000'],
+    },
+  },
+  apis: ['server.js', './src/routes/api/*.js'],
+}
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 app.use(session(sessionConfig))
 app.use(cookieParser())
 serverConfig(app)
 
 // views routes
-app.use('/', indexRouter)
-app.use('/shop-cabinet', ShopCabinetRouter)
-app.use('/card', CardViewRouter)
-app.use('/shop', ShopViewRouter)
-app.use('/cart', CartViewRouter)
+app.use('/', ssr, indexRouter)
+app.use('/shop-cabinet', ssr, ShopCabinetRouter)
+app.use('/card', ssr, CardViewRouter)
+app.use('/shop', ssr, ShopViewRouter)
+app.use('/cart', ssr, CartViewRouter)
 
 // api routes
 app.use('/api', RegistrationAPIRouter)

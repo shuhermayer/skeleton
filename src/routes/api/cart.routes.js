@@ -30,6 +30,17 @@ CartAPIRouter.post('/cart/add', async (req, res) => {
   }
 })
 
+/**
+ * @swagger
+ * /api/cart/:id:
+ *   patch:
+ *     tags:
+ *       - Cart
+ *     description: Use to change some data in cart item
+ *     responses:
+ *       '200':
+ *         description: A successful response
+ */
 CartAPIRouter.patch('/cart/:id', async (req, res) => {
   const { id } = req.params
   const userId = req.session.user.id
@@ -57,6 +68,17 @@ CartAPIRouter.patch('/cart/:id', async (req, res) => {
   }
 })
 
+/**
+ * @swagger
+ * /api/cart/:id:
+ *   delete:
+ *     tags:
+ *       - Cart
+ *     description: DELETE item from user cart by id
+ *     responses:
+ *       '201':
+ *         description: A successful response without body
+ */
 CartAPIRouter.delete('/cart/:id', async (req, res) => {
   const { id } = req.params
   const userId = req.session.user.id

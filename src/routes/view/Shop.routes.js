@@ -25,18 +25,16 @@ ShopViewRouter.get('/*', async (req, res) => {
         },
       ],
     })
-    const element = React.createElement(
-      Layout,
-      {
-        title: 'Магазин',
-        user: req.session.user,
-      },
-      React.createElement(Shop, { cards, user: req.session.user }),
-    )
-    const html = ReactDOMServer.renderToStaticMarkup(element)
 
-    res.write('<!DOCTYPE html>')
-    res.end(html)
+    const layoutProps = {
+      title: 'Каталог',
+      user: req.session.user,
+      titleCode: 'Catalog',
+    }
+    const componentProps = { cards, user: req.session.user }
+
+    const page = res.renderComponent(layoutProps, Shop, componentProps)
+    res.send(page)
   } catch (error) {
     console.log(error.message)
   }

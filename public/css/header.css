@@ -98,6 +98,14 @@ label {
   color: #ff0000;
 }
 
+.active {
+  color: #171717;
+}
+.active::after {
+  width: 100%;
+  background-color: #ff0000;
+}
+
 
 .modalForm {
   display: flex;

@@ -13,18 +13,16 @@ router.get('/', async (req, res) => {
       published: true,
     },
   })
-  const element = React.createElement(
-    Layout,
-    {
-      title: 'Главная',
-      user: req.session.user,
-    },
-    React.createElement(Main, { cards, user: req.session.user }),
-  )
-  const html = ReactDOMServer.renderToStaticMarkup(element)
 
-  res.write('<!DOCTYPE html>')
-  res.end(html)
+  const layoutProps = {
+    title: 'Главная',
+    user: req.session.user,
+    titleCode: 'Main',
+  }
+  const componentProps = { cards, user: req.session.user }
+
+  const page = res.renderComponent(layoutProps, Main, componentProps)
+  res.send(page)
 })
 
 module.exports = router

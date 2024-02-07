@@ -4,9 +4,6 @@ import BuyButton from './BuyButton';
 function Card({
   card, user, context,
 }) {
-  console.log('card', card?.Carts?.length > 0)
-  console.log('user', user);
-  console.log('context', context)
   const ownCard = user.id === card.userId;
   return (
     <div className="cardWrapper" data-card-id={card.id}>

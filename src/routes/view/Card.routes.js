@@ -22,9 +22,12 @@ CardViewRouter.get('/:id', async (req, res) => {
   console.log('card', card)
 
   const component = React.createElement(Layout, { user: req.session.user }, React.createElement(Card, { card }))
-  const html = ReactDOMServer.renderToStaticMarkup(component)
-  res.write('<!DOCTYPE html>')
-  res.end(html)
+
+  const layoutProps = { user: req.session.user }
+  const componentProps = { card }
+
+  const page = res.renderComponent(layoutProps, Card, componentProps)
+  res.send(page)
 })
 
 CardViewRouter.get('/:id/edit', async (req, res) => {
@@ -33,14 +36,11 @@ CardViewRouter.get('/:id/edit', async (req, res) => {
 
   try {
     const card = await Cards.findByPk(+cardId)
-    const component = React.createElement(
-      Layout,
-      { user: req.session.user },
-      React.createElement(CardEdit, { card, user: req.session.user }),
-    )
-    const html = ReactDOMServer.renderToStaticMarkup(component)
-    res.write('<!DOCTYPE html>')
-    res.end(html)
+
+    const layoutProps = { user: req.session.user }
+    const componentProps = { card, user: req.session.user }
+    const page = res.renderComponent(layoutProps, CardEdit, componentProps)
+    res.send(page)
   } catch (error) {
     console.log(error.message)
   }

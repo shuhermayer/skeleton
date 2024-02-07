@@ -1,10 +1,8 @@
 const express = require('express')
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
-const Main = require('../../views/Main')
 const Layout = require('../../views/Layout')
 const { Cards, Cart: Carts } = require('../../../db/models/index')
-const { default: Card } = require('../../views/Card')
 const Cart = require('../../views/Cart')
 
 const CartViewRouter = express.Router()
@@ -23,18 +21,13 @@ CartViewRouter.get('/', async (req, res) => {
         },
       ],
     })
-    const element = React.createElement(
-      Layout,
-      {
-        title: 'Корзина',
-        user: req.session.user,
-      },
-      React.createElement(Cart, { cart }),
-    )
-    const html = ReactDOMServer.renderToStaticMarkup(element)
-
-    res.write('<!DOCTYPE html>')
-    res.end(html)
+    const layoutProps = {
+      title: 'Корзина',
+      user: req.session.user,
+    }
+    const componentProps = { cart }
+    const page = res.renderComponent(layoutProps, Cart, componentProps)
+    res.send(page)
   } catch (error) {
     console.error(error.message)
   }

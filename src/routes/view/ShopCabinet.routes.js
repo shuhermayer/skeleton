@@ -8,23 +8,22 @@ const { default: ShopCabinet } = require('../../views/ShopCabinet')
 const ShopCabinetRouter = express.Router()
 
 ShopCabinetRouter.get('/', async (req, res) => {
-  console.log('req.session.user', req.session.user)
   const cards = await Cards.findAll({
     where: {
       userId: req.session.user.id,
     },
   })
-  const element = React.createElement(
-    Layout,
-    {
-      user: req.session.user,
-    },
-    React.createElement(ShopCabinet, { title: 'Card List', cards, user: req.session.user }),
-  )
-  const html = ReactDOMServer.renderToStaticMarkup(element)
 
-  res.write('<!DOCTYPE html>')
-  res.end(html)
+  const layoutProps = {
+    user: req.session.user,
+    titleCode: 'ShopCabinet',
+    title: 'Кабинет магазина',
+  }
+
+  const componentProps = { title: 'Card List', cards, user: req.session.user }
+
+  const page = res.renderComponent(layoutProps, ShopCabinet, componentProps)
+  res.send(page)
 })
 
 module.exports = ShopCabinetRouter
