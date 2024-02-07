@@ -7,18 +7,23 @@ const publishBtn = document.querySelector('.publishBtn')
 const buyBtn = document.querySelectorAll('.buyBtn')
 
 if (cardEditForm) {
+  const { cardId } = cardEditForm.dataset
+
+  const pathName = window.location.pathname
+  const method = pathName.includes('new') ? 'POST' : 'PUT'
+  const url = pathName.includes('new') ? '/api/card' : `/api/card/${cardId}`
+  console.log('window.location.pathname', window.location.pathname)
   cardEditForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     const formData = Object.fromEntries(new FormData(cardEditForm))
-    const { cardId } = cardEditForm.dataset
-
-    const res = await fetch(`/api/card/${cardId}`, {
-      method: 'PUT',
+    console.log('cardEditForm submit', formData)
+    const res = await fetch(url, {
+      method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     })
     const resData = await res.json()
-    if (resData.status === 'OK') window.location.href = `/card/${cardId}`
+    if (res.status === 200 || res.status === 201) window.location.href = `/card/${resData.card.id}`
   })
 }
 
@@ -61,15 +66,21 @@ if (publishBtn) {
 }
 
 if (window.location.pathname === '/shop-cabinet') {
+  const newCard = document.querySelector('.addNew')
+  newCard.addEventListener('click', () => {
+    window.location.href = '/card/new'
+  })
   const cards = document.querySelectorAll('.cardWrapper')
   cards.forEach((card) => {
-    card.addEventListener('click', (e) => {
-      if (!e.target.closest('.cardToolbarBtn')) {
-        // e.stopPropagation()
-        const { cardId } = card.dataset
-        window.location.href = `/card/${cardId}`
-      }
-    })
+    if (card.classList.length === 1) {
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('.cardToolbarBtn')) {
+          // e.stopPropagation()
+          const { cardId } = card.dataset
+          window.location.href = `/card/${cardId}`
+        }
+      })
+    }
   })
 }
 

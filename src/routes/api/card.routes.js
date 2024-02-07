@@ -21,9 +21,7 @@ CardAPIRouter.put('/card/:id', async (req, res) => {
       image: image || null,
     })
 
-    res.status(200).json({ status: 'OK' })
-
-    console.log('card', card)
+    res.status(200).json({ card })
   } catch (error) {
     console.log(error.message)
   }
@@ -51,6 +49,28 @@ CardAPIRouter.patch('/card/:id', async (req, res) => {
     })
     card.save()
     res.status(200).json({ card })
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+
+CardAPIRouter.post('/card', async (req, res) => {
+  const newData = req.body
+  console.log('newData', newData)
+
+  try {
+    const card = await Cards.create({
+      userId: req.session.user.id,
+      title: newData.title,
+      description: newData.description,
+      image: newData.image,
+      pusblushed: false,
+    })
+    if (!card) {
+      return res.status(404).json({ error: 'Не найдено' })
+    }
+
+    res.status(201).json({ card })
   } catch (error) {
     console.log(error.message)
   }

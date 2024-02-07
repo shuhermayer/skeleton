@@ -8,26 +8,37 @@ const { default: CardEdit } = require('../../views/CardEdit')
 
 const CardViewRouter = express.Router()
 
+CardViewRouter.get('/new', (req, res) => {
+  const layoutProps = { user: req.session.user }
+  const componentProps = { user: req.session.user }
+  const page = res.renderComponent(layoutProps, CardEdit, componentProps)
+  res.send(page)
+})
+
 CardViewRouter.get('/:id', async (req, res) => {
   console.log('card view router')
-  const cardId = req.params.id
-  const { user } = req.session
-  const card = await Cards.findOne({
-    where: {
-      id: cardId,
-      userId: user.id,
-    },
-    raw: true,
-  })
-  console.log('card', card)
+  try {
+    const cardId = req.params.id
+    const { user } = req.session
+    const card = await Cards.findOne({
+      where: {
+        id: cardId,
+        userId: user.id,
+      },
+      raw: true,
+    })
+    console.log('card', card)
 
-  const component = React.createElement(Layout, { user: req.session.user }, React.createElement(Card, { card }))
+    const component = React.createElement(Layout, { user: req.session.user }, React.createElement(Card, { card }))
 
-  const layoutProps = { user: req.session.user }
-  const componentProps = { card }
+    const layoutProps = { user: req.session.user }
+    const componentProps = { card }
 
-  const page = res.renderComponent(layoutProps, Card, componentProps)
-  res.send(page)
+    const page = res.renderComponent(layoutProps, Card, componentProps)
+    res.send(page)
+  } catch (error) {
+    console.error(error.message)
+  }
 })
 
 CardViewRouter.get('/:id/edit', async (req, res) => {
