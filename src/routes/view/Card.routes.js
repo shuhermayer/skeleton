@@ -16,7 +16,6 @@ CardViewRouter.get('/new', (req, res) => {
 })
 
 CardViewRouter.get('/:id', async (req, res) => {
-  console.log('card view router')
   try {
     const cardId = req.params.id
     const { user } = req.session
@@ -27,9 +26,6 @@ CardViewRouter.get('/:id', async (req, res) => {
       },
       raw: true,
     })
-    console.log('card', card)
-
-    const component = React.createElement(Layout, { user: req.session.user }, React.createElement(Card, { card }))
 
     const layoutProps = { user: req.session.user }
     const componentProps = { card }

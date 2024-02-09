@@ -21,6 +21,7 @@ module.exports = function Layout({
         <link rel="stylesheet" href="/css/card.css" />
         <link rel="stylesheet" href="/css/card-info.css" />
         <script defer src="/js/client.js" />
+        <script defer src="/js/chat.js" />
         <script defer src="/js/main.js" />
         <script defer src="/js/header.js" />
         <script defer src="/js/cart.js" />
